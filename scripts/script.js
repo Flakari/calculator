@@ -14,7 +14,10 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
-console.log(add(2, 3));
-console.log(subtract(2, 3));
-console.log(multiply(2, 3));
-console.log(divide(2, 3));
+let container = document.querySelector('#container');
+let button = container.querySelectorAll('button');
+button.forEach(calcKey => {
+    calcKey.addEventListener('click', function(e) {
+        console.log(e.target.getAttribute('data-key'));
+    });    
+});
