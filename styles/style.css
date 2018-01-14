@@ -1,0 +1,15 @@
+#container {
+    width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+#container button {
+    border-radius: 5px;
+    margin-right: 4px;
+    margin-bottom: 5px;
+    height: 60px;
+    width: 80px;
+    font-size: 3em;
+    outline: none;
+}
