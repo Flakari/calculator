@@ -27,13 +27,20 @@ let container = document.querySelector('#container');
 let button = container.querySelectorAll('button');
 button.forEach(calcKey => {
     calcKey.addEventListener('click', function(e) {
-        if (calc[0] == 0) {
-            calc.push(e.target.getAttribute('data-key'));
-            calc.shift();
-            displayText.innerText = calc.join('');
-        } else {
-            calc.push(e.target.getAttribute('data-key'));
-            displayText.innerText = calc.join('');
+        if (calc.length < 14) {
+            if (calc[0] == 0) {
+                if(e.target.getAttribute('data-key') == '.' || calc[1] == '.') {
+                    calc.push(e.target.getAttribute('data-key'));
+                    displayText.innerText = calc.join('');
+                } else {
+                calc.push(e.target.getAttribute('data-key'));
+                calc.shift();
+                displayText.innerText = calc.join('');
+                }
+            } else {
+                calc.push(e.target.getAttribute('data-key'));
+                displayText.innerText = calc.join('');
+            }
         }
         //console.log(e.target.getAttribute('data-key'));
     });    
