@@ -14,10 +14,27 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
+function operate(num1, operator, num2) {
+
+}
+
+let calc = [0];
+let display = document.querySelector('#display');
+let displayText = display.querySelector('p');
+displayText.textContent = calc.join('');
+
 let container = document.querySelector('#container');
 let button = container.querySelectorAll('button');
 button.forEach(calcKey => {
     calcKey.addEventListener('click', function(e) {
-        console.log(e.target.getAttribute('data-key'));
+        if (calc[0] == 0) {
+            calc.push(e.target.getAttribute('data-key'));
+            calc.shift();
+            displayText.innerText = calc.join('');
+        } else {
+            calc.push(e.target.getAttribute('data-key'));
+            displayText.innerText = calc.join('');
+        }
+        //console.log(e.target.getAttribute('data-key'));
     });    
 });
