@@ -25,23 +25,34 @@ displayText.textContent = calc.join('');
 
 let container = document.querySelector('#container');
 let button = container.querySelectorAll('button');
+let numExp = /[\d.]/;
+let operateExp = /[-+*\/=]/;
 button.forEach(calcKey => {
     calcKey.addEventListener('click', function(e) {
-        if (calc.length < 14) {
-            if (calc[0] == 0) {
-                if(e.target.getAttribute('data-key') == '.' || calc[1] == '.') {
+        if(numExp.test(e.target.getAttribute('data-key')) == true) {
+            if (calc.length < 14) {
+                if (calc.includes('.') == true && e.target.getAttribute('data-key') == '.') {
+                    return;
+                }
+
+                if (calc[0] == 0) {
+                    if(e.target.getAttribute('data-key') == '.' || calc[1] == '.') {
+                        calc.push(e.target.getAttribute('data-key'));
+                        displayText.innerText = calc.join('');
+                    } else {
+                    calc.push(e.target.getAttribute('data-key'));
+                    calc.shift();
+                    displayText.innerText = calc.join('');
+                    }
+                } else {
                     calc.push(e.target.getAttribute('data-key'));
                     displayText.innerText = calc.join('');
-                } else {
-                calc.push(e.target.getAttribute('data-key'));
-                calc.shift();
-                displayText.innerText = calc.join('');
                 }
-            } else {
-                calc.push(e.target.getAttribute('data-key'));
-                displayText.innerText = calc.join('');
             }
         }
-        //console.log(e.target.getAttribute('data-key'));
+
+        if (operateExp.test(e.target.getAttribute('data-key')) == true) {
+            
+        }
     });    
 });
