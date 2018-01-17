@@ -29,6 +29,7 @@ function operate(num1, operator, num2) {
 let calc = [0];
 let operation = [];
 let inOperation = false;
+let equals = false;
 let display = document.querySelector('#display');
 let displayText = display.querySelector('#main');
 let operateText = display.querySelector('#operator');
@@ -41,6 +42,11 @@ let operateExp = /[-+*\/=]/;
 button.forEach(calcKey => {
     calcKey.addEventListener('click', function(e) {
         if(numExp.test(e.target.getAttribute('data-key')) == true) {
+            if (equals == true) {
+                calc = [0];
+                equals = false;
+            }
+            
             if (calc.length < 14) {
                 if (calc.includes('.') == true && e.target.getAttribute('data-key') == '.') {
                     return;
@@ -67,11 +73,17 @@ button.forEach(calcKey => {
                 calc = calc.join('');
                 operation.push(calc);
                 let num = operate(operation[0], operation[1], operation[2]);
-                displayText.innerText = num;
                 operation = [];
-                calc = [num];
+                num = num.toString();
+                console.log(num.length);
+                if (num.length >= 14) {
+                    num = Number(num) .toExponential(7);
+                } 
+                calc = num.split('');
+                displayText.innerText = num;
                 operateText.innerText = '0';
                 inOperation = false;
+                equals = true;
                 return;
             }
             
