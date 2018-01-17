@@ -63,6 +63,18 @@ button.forEach(calcKey => {
         }
 
         if (operateExp.test(e.target.getAttribute('data-key')) == true) {
+            if (e.target.getAttribute('data-key') == '=') {
+                calc = calc.join('');
+                operation.push(calc);
+                let num = operate(operation[0], operation[1], operation[2]);
+                displayText.innerText = num;
+                operation = [];
+                calc = [num];
+                operateText.innerText = '0';
+                inOperation = false;
+                return;
+            }
+            
             if (inOperation == false) {
                 calc = calc.join('');
                 operation.push(calc);
