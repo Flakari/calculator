@@ -70,10 +70,15 @@ button.forEach(calcKey => {
 
         if (operateExp.test(e.target.getAttribute('data-key')) == true) {
             if (e.target.getAttribute('data-key') == '=') {
-                calc = calc.join('');
+                if (typeof calc == Array) {
+                    calc = calc.join('');
+                }
                 operation.push(calc);
                 let num = operate(operation[0], operation[1], operation[2]);
                 operation = [];
+                if (num == undefined) {
+                    return;
+                }
                 num = num.toString();
                 console.log(num.length);
                 if (num.length >= 14) {
@@ -111,6 +116,9 @@ button.forEach(calcKey => {
             operateText.textContent = '0';
             calc = [0];
             displayText.textContent = calc.join('');
+            if (inOperation == true) {
+                inOperation = false;
+            }
         }
     });    
 });
