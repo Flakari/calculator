@@ -105,5 +105,12 @@ button.forEach(calcKey => {
                 calc = [];
             }
         }
+
+        if (e.target.getAttribute('data-key') == 'clear') {
+            operation = [];
+            operateText.textContent = '0';
+            calc = [0];
+            displayText.textContent = calc.join('');
+        }
     });    
 });
