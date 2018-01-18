@@ -40,9 +40,7 @@ let button = container.querySelectorAll('button');
 let numExp = /[\d.]/;
 let operateExp = /[-+*\/=]/;
 
-function calculate(e) {
-    const button = e.target.getAttribute('data-button');
-  
+function calculate(button) {
     if(numExp.test(button) == true) {
         if (equals == true) {
             calc = [0];
@@ -124,5 +122,17 @@ function calculate(e) {
 }
 
 button.forEach(calcKey => {
-    calcKey.addEventListener('click', calculate);    
+    calcKey.addEventListener('click', function(e) {
+        calculate(e.target.getAttribute('data-button'));
+    });    
+});
+
+window.addEventListener('keydown', function(e) {
+    let keyPress = String(e.keyCode);
+    button.forEach(calcKey => {
+        let key = calcKey.getAttribute('data-key');
+        if (key && key.split(' ').includes(keyPress)) {
+            calculate(calcKey.getAttribute('data-button'));
+        }
+    });
 });
