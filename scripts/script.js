@@ -39,86 +39,90 @@ let container = document.querySelector('#container');
 let button = container.querySelectorAll('button');
 let numExp = /[\d.]/;
 let operateExp = /[-+*\/=]/;
-button.forEach(calcKey => {
-    calcKey.addEventListener('click', function(e) {
-        if(numExp.test(e.target.getAttribute('data-key')) == true) {
-            if (equals == true) {
-                calc = [0];
-                equals = false;
-            }
-            
-            if (calc.length < 14) {
-                if (calc.includes('.') == true && e.target.getAttribute('data-key') == '.') {
-                    return;
-                }
 
-                if (calc[0] == 0) {
-                    if(e.target.getAttribute('data-key') == '.' || calc[1] == '.') {
-                        calc.push(e.target.getAttribute('data-key'));
-                        displayText.innerText = calc.join('');
-                    } else {
-                    calc.push(e.target.getAttribute('data-key'));
-                    calc.shift();
-                    displayText.innerText = calc.join('');
-                    }
-                } else {
-                    calc.push(e.target.getAttribute('data-key'));
-                    displayText.innerText = calc.join('');
-                }
-            }
+function calculate(e) {
+    const button = e.target.getAttribute('data-button');
+  
+    if(numExp.test(button) == true) {
+        if (equals == true) {
+            calc = [0];
+            equals = false;
         }
-
-        if (operateExp.test(e.target.getAttribute('data-key')) == true) {
-            if (e.target.getAttribute('data-key') == '=') {
-                if (typeof calc == Array) {
-                    calc = calc.join('');
-                }
-                operation.push(calc);
-                let num = operate(operation[0], operation[1], operation[2]);
-                operation = [];
-                if (num == undefined) {
-                    return;
-                }
-                num = num.toString();
-                console.log(num.length);
-                if (num.length >= 14) {
-                    num = Number(num) .toExponential(7);
-                } 
-                calc = num.split('');
-                displayText.innerText = num;
-                operateText.innerText = '0';
-                inOperation = false;
-                equals = true;
+        
+        if (calc.length < 14) {
+            if (calc.includes('.') == true && button == '.') {
                 return;
             }
-            
-            if (inOperation == false) {
-                calc = calc.join('');
-                operation.push(calc);
-                operation.push(e.target.getAttribute('data-key'));
-                operateText.innerText = operation.join(' ');
-                calc = [];
-                inOperation = true;
-            } else if (inOperation = true) {
-                calc = calc.join('');
-                operation.push(calc);
-                let num = operate(operation[0], operation[1], operation[2]);
-                operation = [];
-                operation.push(num);
-                operation.push(e.target.getAttribute('data-key'));
-                operateText.innerText = operation.join(' ');
-                calc = [];
-            }
-        }
 
-        if (e.target.getAttribute('data-key') == 'clear') {
-            operation = [];
-            operateText.textContent = '0';
-            calc = [0];
-            displayText.textContent = calc.join('');
-            if (inOperation == true) {
-                inOperation = false;
+            if (calc[0] == 0) {
+                if(button == '.' || calc[1] == '.') {
+                    calc.push(button);
+                    displayText.innerText = calc.join('');
+                } else {
+                calc.push(button);
+                calc.shift();
+                displayText.innerText = calc.join('');
+                }
+            } else {
+                calc.push(button);
+                displayText.innerText = calc.join('');
             }
         }
-    });    
+    }
+
+    if (operateExp.test(button) == true) {
+        if (button == '=') {
+            if (typeof calc === 'object') {
+                calc = calc.join('');
+            }
+            operation.push(calc);
+            let num = operate(operation[0], operation[1], operation[2]);
+            operation = [];
+            if (num == undefined) {
+                return;
+            }
+            num = num.toString();
+            if (num.length >= 14) {
+                num = Number(num) .toPrecision(7);
+            } 
+            calc = num.split('');
+            displayText.innerText = num;
+            operateText.innerText = '0';
+            inOperation = false;
+            equals = true;
+            return;
+        }
+        
+        if (inOperation == false) {
+            calc = calc.join('');
+            operation.push(calc);
+            operation.push(button);
+            operateText.innerText = operation.join(' ');
+            calc = [];
+            inOperation = true;
+        } else if (inOperation = true) {
+            calc = calc.join('');
+            operation.push(calc);
+            let num = operate(operation[0], operation[1], operation[2]);
+            operation = [];
+            operation.push(num);
+            operation.push(button);
+            operateText.innerText = operation.join(' ');
+            calc = [];
+        }
+    }
+
+    if (button == 'clear') {
+        operation = [];
+        operateText.textContent = '0';
+        calc = [0];
+        displayText.textContent = calc.join('');
+        if (inOperation == true) {
+            inOperation = false;
+        }
+    }
+}
+
+button.forEach(calcKey => {
+    calcKey.addEventListener('click', calculate);    
 });
