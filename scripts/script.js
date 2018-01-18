@@ -119,6 +119,19 @@ function calculate(button) {
             inOperation = false;
         }
     }
+
+    if (button == 'back') {
+        calc.pop();
+        if (calc.length < 1) {
+            calc = [0];
+        }
+
+        if (equals == true) {
+            calc = [0];
+            equals = false;
+        }
+        displayText.textContent = calc.join('');
+    }
 }
 
 button.forEach(calcKey => {
@@ -129,8 +142,20 @@ button.forEach(calcKey => {
 
 window.addEventListener('keydown', function(e) {
     let keyPress = String(e.keyCode);
+   
+    if (e.shiftKey && keyPress == '56') {
+        calculate('*');
+        return;
+    }
+
+    if (e.shiftKey && keyPress == '187') {
+        calculate('+');
+        return;
+    }
+
     button.forEach(calcKey => {
         let key = calcKey.getAttribute('data-key');
+
         if (key && key.split(' ').includes(keyPress)) {
             calculate(calcKey.getAttribute('data-button'));
         }
