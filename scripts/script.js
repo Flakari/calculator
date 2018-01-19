@@ -137,6 +137,7 @@ function calculate(button) {
 button.forEach(calcKey => {
     calcKey.addEventListener('click', function(e) {
         calculate(e.target.getAttribute('data-button'));
+        console.log(e.target.getAttribute('data-button'));
     });    
 });
 
