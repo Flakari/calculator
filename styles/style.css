@@ -10,10 +10,20 @@ p {
 }
 
 #container button {
+    color: rgb(240, 240, 240);
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(87, 87, 87);
+    outline: none;
+    box-sizing: border-box;
+    border: none;
+    border-top: 2px rgba(14, 0, 41, 0.3) solid;
+    border-right: 2px rgba(14, 0, 41, 0.3) solid;
+    border-left: 2px rgba(255, 255, 255, 0.3) solid;
+    border-bottom: 2px rgba(255, 255, 255, 0.3) solid;
     border-radius: 7px;
     margin-left: 2px;
     margin-right: 2px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     height: 60px;
     width: 80px;
     font-size: 2.6em;
@@ -25,20 +35,26 @@ p {
     padding: 5px 10px;
     margin: auto;
     margin-bottom: 20px;
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(223, 223, 223);
     width: 340px;
-    height: 65px;
+    height: 75px;
+    border-left: 2px #888686 solid;
+    border-bottom: 1px #888686 solid;
 }
 
 #display p {
-    font-family: 'digital-7';
+    font-family: Arial, Helvetica, sans-serif;
     text-align: right;
-    line-height: 0.8;
+    line-height: 0.9;
 }
 
 #display #operator {
     font-size: 0.45em;
-    line-height: 1;
+    line-height: 1.4;
+}
+
+#container #equals {
+    background-color: #ff7e00;
 }
 
 #container div {
@@ -49,9 +65,15 @@ p {
 }
 
 #calc-body {
+    box-sizing: border-box;
+    border-top: 5px rgb(112, 112, 112) solid;
+    border-right: 7px rgb(112, 112, 112) solid;
+    border-left: 7px rgb(179, 179, 179) solid;
+    border-bottom: 5px rgb(179, 179, 179) solid;
     background-color: rgb(156, 156, 156);
-    margin:auto;
-    width: 400px;
+    margin: auto;
+    margin-top: 30px;
+    width: 410px;
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 20px;
@@ -59,4 +81,53 @@ p {
 
 #container div button {
     line-height: 0;
+}
+
+.active {
+    box-sizing: border-box;
+    border: none !important;
+    border-left: 3px rgba(14, 0, 41, 0.3) solid !important;
+    border-bottom: 3px rgba(14, 0, 41, 0.3) solid !important;
+    border-top: 3px rgba(255, 255, 255, 0.3) solid !important;
+    border-right: 3px rgba(255, 255, 255, 0.3) solid !important;
+    margin-bottom: -2px !important;
+    font-size: 2.5em !important;
+}
+
+#container .operator {
+    background-color: rgb(44, 44, 44);
+}
+
+#sensor {
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #3d1717;
+    border-bottom: 1px #220101 solid;
+    border-left: 2px #220101 solid;
+    width: 200px;
+    height: 45px;
+    margin-bottom: 15px;
+    position: relative;
+    left: 25px;
+    display: inline-block;
+}
+
+.line {
+    display: inline-block;
+    width: 2px;
+    height: 44px;
+    background-color: #801013;
+    margin-left: 60px;
+}
+
+#logo {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.9em;
+    display: inline-block;
+    position: relative;
+    left: 39px;
+    bottom: 5px;
+    font-style: italic;
+    font-weight: bold;
+    font-variant: small-caps;
 }

@@ -47,7 +47,7 @@ function calculate(button) {
             equals = false;
         }
         
-        if (calc.length < 14) {
+        if (calc.length < 12) {
             if (calc.includes('.') == true && button == '.') {
                 return;
             }
@@ -80,7 +80,7 @@ function calculate(button) {
                 return;
             }
             num = num.toString();
-            if (num.length >= 14) {
+            if (num.length >= 12) {
                 num = Number(num) .toPrecision(7);
             } 
             calc = num.split('');
@@ -135,9 +135,20 @@ function calculate(button) {
 }
 
 button.forEach(calcKey => {
+    
+});
+
+button.forEach(calcKey => {
+    calcKey.addEventListener('mousedown', function(e) {
+        e.target.classList.add('active');
+    });
+
+    calcKey.addEventListener('mouseup', function(e) {
+        e.target.classList.remove('active');
+    })
+
     calcKey.addEventListener('click', function(e) {
         calculate(e.target.getAttribute('data-button'));
-        console.log(e.target.getAttribute('data-button'));
     });    
 });
 
