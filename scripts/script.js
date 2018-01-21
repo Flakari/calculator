@@ -113,7 +113,7 @@ function calculate(button) {
         }
     }
 
-    if (button == 'clear') {
+    if (button == 'c') {
         displayText.classList.remove('hidden');
         operateText.classList.remove('hidden');
         hidden = false;
@@ -127,7 +127,7 @@ function calculate(button) {
         }
     }
 
-    if (button == 'back') {
+    if (button == 'Backspace') {
         calc.pop();
         if (calc.length < 1) {
             calc = [0];
