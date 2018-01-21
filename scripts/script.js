@@ -71,8 +71,8 @@ function calculate(button) {
         }
     }
 
-    if (operateExp.test(button) == true) {
-        if (button == '=') {
+    if (operateExp.test(button) == true || button == 'Enter') {
+        if (button == '=' || button == 'Enter') {
             if (typeof calc === 'object') {
                 calc = calc.join('');
             }
@@ -156,30 +156,17 @@ button.forEach(calcKey => {
 });
 
 window.addEventListener('keydown', function(e) {
-    let keyPress = String(e.keyCode);
-    let add = document.querySelector('#add');
-    let times = document.querySelector('#times');
-
-    if (e.shiftKey && keyPress == '56') {
-        calculate('*');
-        times.classList.add('active');
+    if (e.key.toString() === 'Enter') {
+        event.preventDefault();
+        calculate(e.key);
         return;
     }
-
-    if (e.shiftKey && keyPress == '187') {
-        calculate('+');
-        add.classList.add('active');
-        return;
-    }
-
+    
     button.forEach(calcKey => {
-        let key = calcKey.getAttribute('data-key');
-
-        if (key && key.split(' ').includes(keyPress)) {
-            calculate(calcKey.getAttribute('data-button'));
-            calcKey.classList.add('active');
+        if (e.key == calcKey.getAttribute('data-button')) {
+            calculate(e.key);
         }
-    });
+    })
 });
 
 window.addEventListener('keyup', function(e) {
