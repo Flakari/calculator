@@ -44,7 +44,7 @@ let operateExp = /[-+*\/=]/;
 let hidden = false;
 
 function calculate(button) {
-    if(numExp.test(button) == true) {
+    if (numExp.test(button) == true) {
         if (equals == true) {
             calc = [0];
             equals = false;
@@ -55,7 +55,7 @@ function calculate(button) {
                 return;
             }
 
-            if (calc[0] == 0) {
+            if (calc[0] == '0') {
                 if(button == '.' || calc[1] == '.') {
                     calc.push(button);
                     displayText.innerText = calc.join('');
@@ -78,43 +78,42 @@ function calculate(button) {
             }
             operation.push(calc);
             let num = operate(operation[0], operation[1], operation[2]);
-            operation = [];
             if (num == undefined) {
                 return;
             }
-            num = num.toString();
-            if (num.length >= 12) {
-                num = Number(num) .toPrecision(7);
-            } 
-            calc = num.split('');
-            displayText.innerText = num;
+            operation = [];
+            calc = num.toString();
+            if (calc.length >= 12) {
+                calc = Number(calc) .toPrecision(7);
+            }
+            displayText.innerText = calc;
+            calc = calc.split('');
             operateText.innerText = '0';
             inOperation = false;
             equals = true;
             return;
-        }
-        
-        if (inOperation == false) {
-            calc = calc.join('');
-            operation.push(calc);
-            operation.push(button);
-            operateText.innerText = operation.join(' ');
-            calc = [];
-            inOperation = true;
-        } else if (inOperation = true) {
-            calc = calc.join('');
-            operation.push(calc);
-            let num = operate(operation[0], operation[1], operation[2]);
-            operation = [];
-            operation.push(num);
-            operation.push(button);
-            operateText.innerText = operation.join(' ');
-            calc = [];
+        } else {
+            if (inOperation == false) {
+                calc = calc.join('');
+                operation.push(calc);
+                operation.push(button);
+                operateText.innerText = operation.join(' ');
+                calc = [];
+                inOperation = true;
+            } else if (inOperation = true) {
+                calc = calc.join('');
+                operation.push(calc);
+                let num = operate(operation[0], operation[1], operation[2]);
+                operation = [];
+                operation.push(num);
+                operation.push(button);
+                operateText.innerText = operation.join(' ');
+                calc = [];
+            }
         }
     }
 
     if (button == 'clear') {
-        
         displayText.classList.remove('hidden');
         operateText.classList.remove('hidden');
         hidden = false;
@@ -187,7 +186,7 @@ window.addEventListener('keyup', function(e) {
     button.forEach(calcKey => {
         calcKey.classList.remove('active');
     })
-})
+});
 
 sensor.addEventListener('mouseover', function(e) {
     displayText.classList.add('hidden');
@@ -199,7 +198,7 @@ sensor.addEventListener('mouseover', function(e) {
     }, '5000');
 });
 
-sensor.addEventListener('mouseleave', function(e) {
+sensor.addEventListener('mouseout', function(e) {
     if (hidden) {
         return;
     }
