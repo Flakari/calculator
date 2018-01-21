@@ -35,10 +35,13 @@ let displayText = display.querySelector('#main');
 let operateText = display.querySelector('#operator');
 displayText.textContent = calc.join('');
 
+let timer;
 let container = document.querySelector('#container');
 let button = container.querySelectorAll('button');
+let sensor = document.querySelector('#sensor');
 let numExp = /[\d.]/;
 let operateExp = /[-+*\/=]/;
+let hidden = false;
 
 function calculate(button) {
     if(numExp.test(button) == true) {
@@ -111,6 +114,11 @@ function calculate(button) {
     }
 
     if (button == 'clear') {
+        
+        displayText.classList.remove('hidden');
+        operateText.classList.remove('hidden');
+        hidden = false;
+    
         operation = [];
         operateText.textContent = '0';
         calc = [0];
@@ -135,10 +143,6 @@ function calculate(button) {
 }
 
 button.forEach(calcKey => {
-    
-});
-
-button.forEach(calcKey => {
     calcKey.addEventListener('mousedown', function(e) {
         e.target.classList.add('active');
     });
@@ -154,14 +158,18 @@ button.forEach(calcKey => {
 
 window.addEventListener('keydown', function(e) {
     let keyPress = String(e.keyCode);
-   
+    let add = document.querySelector('#add');
+    let times = document.querySelector('#times');
+
     if (e.shiftKey && keyPress == '56') {
         calculate('*');
+        times.classList.add('active');
         return;
     }
 
     if (e.shiftKey && keyPress == '187') {
         calculate('+');
+        add.classList.add('active');
         return;
     }
 
@@ -170,6 +178,35 @@ window.addEventListener('keydown', function(e) {
 
         if (key && key.split(' ').includes(keyPress)) {
             calculate(calcKey.getAttribute('data-button'));
+            calcKey.classList.add('active');
         }
     });
+});
+
+window.addEventListener('keyup', function(e) {
+    button.forEach(calcKey => {
+        calcKey.classList.remove('active');
+    })
+})
+
+sensor.addEventListener('mouseover', function(e) {
+    displayText.classList.add('hidden');
+    operateText.classList.add('hidden');
+    displayText.classList.remove('visible');
+    operateText.classList.remove('visible');
+    timer = setTimeout(() => {
+        hidden = true;
+    }, '5000');
+});
+
+sensor.addEventListener('mouseleave', function(e) {
+    if (hidden) {
+        return;
+    }
+    clearTimeout(timer);
+    displayText.classList.add('visible');
+    operateText.classList.add('visible');
+    displayText.classList.remove('hidden');
+    operateText.classList.remove('hidden');
+    hidden = false; 
 });

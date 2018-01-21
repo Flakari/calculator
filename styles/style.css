@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'digital-7';
+    src: url(../fonts/digital-7.ttf)
+}
+
 p {
     margin-top: 0;
     margin-bottom: 0;
@@ -31,7 +36,7 @@ p {
 
 #display {
     border-radius: 3px;
-    font-size: 3em;
+    font-size: 3.5em;
     padding: 5px 10px;
     margin: auto;
     margin-bottom: 20px;
@@ -45,7 +50,11 @@ p {
 #display p {
     font-family: Arial, Helvetica, sans-serif;
     text-align: right;
-    line-height: 0.9;
+    line-height: 0.7;
+}
+
+#display #main {
+    font-family: 'digital-7';
 }
 
 #display #operator {
@@ -77,6 +86,7 @@ p {
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 20px;
+    box-shadow: 5px 0 5px rgb(208, 208, 208);
 }
 
 #container div button {
@@ -117,7 +127,7 @@ p {
     width: 2px;
     height: 44px;
     background-color: #801013;
-    margin-left: 60px;
+    margin-left: 62px;
 }
 
 #logo {
@@ -130,4 +140,14 @@ p {
     font-style: italic;
     font-weight: bold;
     font-variant: small-caps;
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 5s linear;
+}
+
+.visible {
+    opacity: 100;
+    transition: opacity 1s linear;
 }
