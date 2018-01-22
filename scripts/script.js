@@ -180,8 +180,11 @@ button.forEach(calcKey => {
 });
 
 window.addEventListener('keydown', function(e) {
+    let equals = document.querySelector('#equals');
+    
     if (e.key == 'Enter') {
         event.preventDefault();
+        equals.classList.add('active');
         calculate(e.key);
         return;
     }
@@ -189,6 +192,7 @@ window.addEventListener('keydown', function(e) {
     button.forEach(calcKey => {
         if (e.key == calcKey.getAttribute('data-button')) {
             calculate(e.key);
+            calcKey.classList.add('active');
         }
     })
 });
