@@ -76,14 +76,32 @@ function calculate(button) {
             if (typeof calc === 'object') {
                 calc = calc.join('');
             }
+
+            if (operation.length == 0) {
+                calc = calc.split('');
+                equals = true;
+                return;
+            }
+
             operation.push(calc);
+
+            if (operation[2] == '') {
+                calc = operation[0];
+                operation = [];
+                operateText.innerText = '0';
+                calc = calc.split('');
+                inOperation = false;
+                equals = true;
+                return;
+            }
+
             let num = operate(operation[0], operation[1], operation[2]);
             if (num == undefined) {
                 return;
             }
             operation = [];
             calc = num.toString();
-            if (calc.length >= 12) {
+            if (calc.length > 12) {
                 calc = Number(calc) .toPrecision(7);
             }
             displayText.innerText = calc;
@@ -94,6 +112,9 @@ function calculate(button) {
             return;
         } else {
             if (inOperation == false) {
+                if (calc.length == 0) {
+                    return;
+                }
                 calc = calc.join('');
                 operation.push(calc);
                 operation.push(button);
@@ -101,6 +122,9 @@ function calculate(button) {
                 calc = [];
                 inOperation = true;
             } else if (inOperation = true) {
+                if (calc.length == 0) {
+                    return;
+                }
                 calc = calc.join('');
                 operation.push(calc);
                 let num = operate(operation[0], operation[1], operation[2]);
@@ -156,7 +180,7 @@ button.forEach(calcKey => {
 });
 
 window.addEventListener('keydown', function(e) {
-    if (e.key.toString() === 'Enter') {
+    if (e.key == 'Enter') {
         event.preventDefault();
         calculate(e.key);
         return;
